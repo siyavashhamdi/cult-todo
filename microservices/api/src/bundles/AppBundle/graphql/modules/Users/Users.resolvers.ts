@@ -5,7 +5,7 @@ import { UsersCollection } from "../../../collections/Users/Users.collection";
 
 export default {
   Query: [
-    [],
+    [X.CheckPermission("NOACCESS")],
     {
       UsersFindOne: [X.ToNovaOne(UsersCollection)],
       UsersFind: [X.ToNova(UsersCollection)],
@@ -13,7 +13,7 @@ export default {
     },
   ],
   Mutation: [
-    [],
+    [X.CheckPermission("NOACCESS")],
     {
       UsersInsertOne: [
         X.ToModel(UserInsertInput, { field: "document" }),

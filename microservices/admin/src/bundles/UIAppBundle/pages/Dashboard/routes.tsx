@@ -1,13 +1,13 @@
 import { Dashboard } from "./Dashboard";
-import { DashboardOutlined } from "@ant-design/icons";
+import { UnorderedListOutlined } from "@ant-design/icons";
 
 export const DASHBOARD = {
   path: "/dashboard",
   component: Dashboard,
   menu: {
     key: "Dashboard",
-    label: "Dashboard",
+    label: "Todo List",
     order: 0,
-    icon: DashboardOutlined,
+    icon: UnorderedListOutlined,
   },
 };

@@ -34,7 +34,7 @@ export function NotFound() {
             <Space>
               {isLoggedIn && (
                 <Link to={router.path(Routes.DASHBOARD)}>
-                  <Button>Dashboard</Button>
+                  <Button>Todo List</Button>
                 </Link>
               )}
               {!isLoggedIn && (

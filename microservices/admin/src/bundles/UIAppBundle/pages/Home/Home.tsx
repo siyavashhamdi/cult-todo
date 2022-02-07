@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGuardian, useRouter } from "@bluelibs/x-ui";
-import { LockOutlined, DashboardFilled, ToolOutlined } from "@ant-design/icons";
+import {
+  LockOutlined,
+  ToolOutlined,
+  UnorderedListOutlined,
+} from "@ant-design/icons";
 import { Routes } from "@bundles/UIAppBundle";
 import { Button, Space, Row, Col, Alert, Card } from "antd";
 
@@ -13,18 +17,14 @@ export function Home() {
   return (
     <Row justify="center" align="middle" style={style}>
       <Col sm={24} md={16} lg={8}>
-        <Card title="Welcome to your brand new app!">
-          <p>
-            This is your application starter url. You can configure this
-            behavior in <strong>{`{bundle}/pages/Home`}</strong> folder.
-          </p>
+        <Card title="Welcome to Todo List project!">
           {guardian.state.isLoggedIn && (
             <Alert
               type="success"
               message={`You are logged in as ${guardian.state.user.profile?.firstName}`}
             />
           )}
-          <p>
+          <div>
             <br />
             <Space>
               <a href={"/public/schema.html"} target="_blank" rel="noreferrer">
@@ -38,13 +38,13 @@ export function Home() {
             <br />
             <Space>
               <Link to={router.path(Routes.DASHBOARD)}>
-                <Button icon={<DashboardFilled />}>Dashboard</Button>
+                <Button icon={<UnorderedListOutlined />}>Todo List</Button>
               </Link>
               <Link to={router.path(Routes.LOGIN)}>
                 <Button icon={<LockOutlined />}>Login</Button>
               </Link>
             </Space>
-          </p>
+          </div>
         </Card>
       </Col>
     </Row>
