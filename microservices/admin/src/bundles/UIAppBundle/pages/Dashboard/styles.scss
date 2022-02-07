@@ -1,2 +1,27 @@
-.page-dashboard {
+.input-holder {
+  margin-bottom: 20px;
+  .input-add {
+    width: 500px;
+  }
+}
+
+.list-holder {
+  .todo-title {
+    display: inline;
+  }
+
+  .todo-checked {
+    color: #e91e63;
+    font-style: italic;
+    text-decoration: line-through;
+    transition: 1s;
+  }
+
+  .todo-unchecked {
+    transition: 1s;
+  }
+}
+
+.todo-delete {
+  cursor: pointer;
 }
