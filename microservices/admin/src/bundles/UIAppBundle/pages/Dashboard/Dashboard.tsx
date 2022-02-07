@@ -20,7 +20,7 @@ export function Dashboard() {
   const UIComponents = useUIComponents();
   const TodoCollection = use(TodosCollection);
   const [newTitle, setNewTitle] = useState("");
-  const [todo, setTodo] = useState<Collections.Todo | any>([]);
+  const [todo, setTodo] = useState<Collections.Todo[]>([]);
 
   useEffect(() => {
     getAllFromCollection().then((result) => {
@@ -28,7 +28,7 @@ export function Dashboard() {
     });
   }, []);
 
-  const getAllFromCollection = async () => {
+  const getAllFromCollection = async (): Promise<Collections.Todo[]> => {
     return new Promise((resolve, reject) => {
       TodoCollection.find({}, { _id: 1, title: 1, isChecked: 1, createdAt: 1 })
         .then((result) => {
