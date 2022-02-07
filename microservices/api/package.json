@@ -25,7 +25,7 @@
     "generate:docs": "typedoc ./src/startup/index.ts --exclude ./src/__tests__ --out typeDocs --tsconfig tsconfig.json"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "7.12.5",
     "@bluelibs/apollo-bundle": "^1.0.0",
     "@bluelibs/apollo-security-bundle": "^1.0.0",
     "@bluelibs/core": "^1.0.0",
@@ -41,7 +41,7 @@
     "@bluelibs/validator-bundle": "^1.0.0",
     "@bluelibs/x-bundle": "^1.0.0",
     "@bluelibs/x-password-bundle": "^1.0.0",
-    "mongodb": "^4.2.2",
+    "mongodb": "4.2.2",
     "class-transformer": "^0.3.1",
     "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
@@ -66,7 +66,7 @@
     "source-map-support": "^0.5.13",
     "ts-jest": "^27.0.3",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.4.4"
+    "typescript": "4.4.4"
   },
   "bluelibs": {
     "type": "microservice"
