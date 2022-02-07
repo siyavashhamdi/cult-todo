@@ -118,6 +118,7 @@ export function Dashboard() {
   const TodoListHolder = () => {
     return (
       <>
+        {todo.length === 0 && <Typography className="todo-not-found">-- No Todo is found! --</Typography>}
         {todo.map(({ _id, title, isChecked }) => {
           return (
             <Typography key={_id}>

@@ -10,6 +10,11 @@
     display: inline;
   }
 
+  .todo-not-found {
+    color: gray;
+    font-style: italic;
+  }
+
   .todo-checked {
     color: #e91e63;
     font-style: italic;
