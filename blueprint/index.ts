@@ -1,10 +1,8 @@
 import * as Collections from "./collections";
-import * as SharedModels from "./shared-models";
 import { generateProject, app } from "./utils";
 
 const application = app({
   id: "todo-siya",
-  sharedModels: Object.values(SharedModels),
   collections: Object.values(Collections),
 });
 
