@@ -11,7 +11,7 @@ npm run start:dev
 ```
 
 ```bash
-cd microservices/ui
+cd microservices/admin
 npm install
 # npm run generate # Run it first time or when GRAPHQL API Changes.
 npm run start:dev
