@@ -1,162 +1,85 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { PageHeader, message } from "antd";
 import { useUIComponents, use } from "@bluelibs/x-ui";
-import { Collections } from "@bundles/UIAppBundle";
-import { TodosCollection } from "@bundles/UIAppBundle/collections";
 import { ObjectId } from "@bluelibs/ejson";
-import { CopyOutlined, DeleteTwoTone } from "@ant-design/icons";
-import {
-  PageHeader,
-  Checkbox,
-  Typography,
-  Input,
-  Button,
-  message,
-  Popconfirm,
-} from "antd";
+import { Collections } from "@bundles/UIAppBundle";
 
-import "./styles.scss";
+import { TodosCollection } from "../../collections/";
+import { TodoForm, ISubmitDocument } from "../../components/Todos/TodoForm";
+import { TodoList } from "../../components/Todos/TodoList";
 
 export function Dashboard() {
   const UIComponents = useUIComponents();
-  const TodoCollection = use(TodosCollection);
-  const [newTitle, setNewTitle] = useState("");
-  const [todo, setTodo] = useState<Collections.Todo[]>([]);
+  const todoCollection = use(TodosCollection);
+
+  const [todos, setTodos] = useState<Collections.Todo[]>([]);
 
   useEffect(() => {
-    getAllFromCollection().then((result) => {
-      setTodo(result);
-    });
+    (async () => {
+      const result = await todoCollection.find(
+        {},
+        { _id: 1, title: 1, isChecked: 1, createdAt: 1 }
+      );
+
+      setTodos(result);
+    })();
   }, []);
 
-  const getAllFromCollection = async (): Promise<Collections.Todo[]> => {
-    return new Promise((resolve, reject) => {
-      TodoCollection.find({}, { _id: 1, title: 1, isChecked: 1, createdAt: 1 })
-        .then((result) => {
-          resolve(result.sort((a, b) => a.createdAt - b.createdAt));
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  };
+  const handleSubmitForm = async (document: ISubmitDocument) => {
+    try {
+      const allTodos = await todoCollection.insertAndGetAll(document.title);
 
-  const handleNewTitleChanged = (ev: ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(ev.target.value);
-  };
-
-  const handleAddNew = () => {
-    const titleToAdd = newTitle.trim();
-
-    if (titleToAdd.length === 0) {
-      message.error("Title is empty!");
-      return;
+      setTodos(allTodos);
+      message.info("New title successfully is added.");
+    } catch {
+      message.error("Error on adding new title!");
     }
-
-    TodoCollection.insertOne({ title: newTitle, isChecked: false })
-      .then((_resAddNotWorking) => {
-        getAllFromCollection().then((result) => {
-          setTodo(result);
-        });
-
-        setNewTitle("");
-        message.info("New title successfully is added.");
-      })
-      .catch(() => {
-        message.error("Error on adding new title!");
-      });
   };
 
-  const handleCheckboxChange = (id: ObjectId) => {
-    const currTodo = [...todo];
+  const handleChangeTodo = async (id: ObjectId, isChecked: boolean) => {
+    const currTodo = [...todos];
     const targetTodo = currTodo.find((t) => t._id === id);
 
     if (targetTodo) {
-      const newIsCheckedVal = !targetTodo.isChecked;
+      try {
+        const resUpdate = await todoCollection.updateOne(id, { isChecked });
 
-      TodoCollection.updateOne(id, { isChecked: newIsCheckedVal }).then(
-        (resUpdate) => {
-          if (resUpdate) {
-            targetTodo.isChecked = newIsCheckedVal;
-            setTodo(currTodo);
-          }
+        if (resUpdate) {
+          targetTodo.isChecked = isChecked;
+
+          setTodos(currTodo);
         }
-      );
+      } catch {
+        message.error("Error on updating todo status!");
+      }
     }
   };
 
-  const handleTodoDelete = (id: ObjectId) => {
-    TodoCollection.deleteOne(id)
-      .then((resDelete) => {
-        if (resDelete) {
-          const newTodo = [...todo].filter((t) => t._id !== id);
+  const handleDeleteTodo = async (id: ObjectId) => {
+    try {
+      const resDelete = await todoCollection.deleteOne(id);
 
-          setTodo(newTodo);
-          message.info("Title is deleted.");
-        }
-      })
-      .catch(() => {
-        message.error("Error on delete!");
-      });
-  };
+      if (resDelete) {
+        const newTodo = [...todos].filter((t) => t._id !== id);
 
-  const inputHolder = () => {
-    return (
-      <Input.Group compact>
-        <Input
-          onPressEnter={handleAddNew}
-          value={newTitle}
-          placeholder="Todo title..."
-          allowClear
-          className="input-add"
-          onChange={handleNewTitleChanged}
-        />
-        <Button type="primary" icon={<CopyOutlined />} onClick={handleAddNew} />
-      </Input.Group>
-    );
-  };
+        setTodos(newTodo);
 
-  const TodoListHolder = () => {
-    return (
-      <>
-        {todo.length === 0 && <Typography className="todo-not-found">-- No Todo is found! --</Typography>}
-        {todo.map(({ _id, title, isChecked }) => {
-          return (
-            <Typography key={_id}>
-              <Checkbox
-                checked={isChecked}
-                onChange={() => handleCheckboxChange(_id)}
-              >
-                <Typography
-                  className={`todo-title ${
-                    isChecked ? "todo-checked" : "todo-unchecked"
-                  }`}
-                >
-                  {title}
-                </Typography>
-              </Checkbox>
-
-              <Popconfirm
-                className="todo-delete"
-                title="Are you sure to delete?"
-                placement="right"
-                onConfirm={() => handleTodoDelete(_id)}
-                okText="Yes"
-                cancelText="No"
-              >
-                <DeleteTwoTone />
-              </Popconfirm>
-            </Typography>
-          );
-        })}
-      </>
-    );
+        message.info("Todo is deleted.");
+      }
+    } catch {
+      message.error("Error on delete!");
+    }
   };
 
   return (
     <UIComponents.AdminLayout>
       <PageHeader title="TodoList" />
-      <Typography className="input-holder">{inputHolder()}</Typography>
-      <Typography className="list-holder">{TodoListHolder()}</Typography>
+      <TodoForm onSubmit={handleSubmitForm} />
+      <TodoList
+        data={todos}
+        onChange={handleChangeTodo}
+        onDelete={handleDeleteTodo}
+      />
     </UIComponents.AdminLayout>
   );
 }

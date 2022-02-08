@@ -1,10 +1,3 @@
-.input-holder {
-  margin-bottom: 20px;
-  .input-add {
-    width: 500px;
-  }
-}
-
 .list-holder {
   .todo-title {
     display: inline;
@@ -25,8 +18,8 @@
   .todo-unchecked {
     transition: 1s;
   }
-}
 
-.todo-delete {
-  cursor: pointer;
+  .todo-delete {
+    cursor: pointer;
+  }
 }
