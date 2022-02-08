@@ -3,14 +3,6 @@ import { collection, field, shortcuts } from "../utils";
 export const Users = collection({
   id: "Users",
   representedBy: "fullName",
-  ui: {
-    list: false,
-    edit: false,
-    create: false,
-    view: false,
-    delete: false,
-    listFilters: false,
-  },
   behaviors: {
     softdeletable: true,
   },
@@ -27,7 +19,7 @@ export const Users = collection({
     field({
       id: "roles",
       type: field.types.ENUM,
-      enumValues: ["TODOER"],
+      enumValues: ["ADMIN", "TODOER"],
       isArray: true,
     }),
     field({

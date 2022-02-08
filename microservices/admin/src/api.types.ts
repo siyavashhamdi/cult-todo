@@ -433,6 +433,7 @@ export type UserProfileInput = {
 };
 
 export enum UserRole {
+  ADMIN = 'ADMIN',
   TODOER = 'TODOER'
 }
 

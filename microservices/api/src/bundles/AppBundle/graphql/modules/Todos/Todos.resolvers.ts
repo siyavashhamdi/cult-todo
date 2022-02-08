@@ -3,31 +3,23 @@ import { IResolverMap } from "@bluelibs/graphql-bundle";
 import { TodoInsertInput, TodoUpdateInput } from "../../../services/inputs";
 import { TodosCollection } from "../../../collections/Todos/Todos.collection";
 
-const setFilter = async (_, _args, ctx) => {
-  return {
-    filters: {
-      createdById: ctx.userId,
-    },
-  };
-};
-
 export default {
   Query: [
-    [X.CheckPermission("TODOER")],
+    [],
     {
-      // TodosFindOne: [X.ToNovaOne(TodosCollection)],
-      TodosFind: [X.ToNova(TodosCollection, setFilter)],
-      // TodosCount: [X.ToCollectionCount(TodosCollection)],
+      TodosFindOne: [X.ToNovaOne(TodosCollection)],
+      TodosFind: [X.ToNova(TodosCollection)],
+      TodosCount: [X.ToCollectionCount(TodosCollection)],
     },
   ],
   Mutation: [
-    [X.CheckPermission("TODOER")],
+    [],
     {
       TodosInsertOne: [
         X.ToModel(TodoInsertInput, { field: "document" }),
         X.Validate({ field: "document" }),
         X.ToDocumentInsert(TodosCollection),
-        X.ToNovaByResultID(TodosCollection, setFilter),
+        X.ToNovaByResultID(TodosCollection),
       ],
       TodosUpdateOne: [
         X.ToModel(TodoUpdateInput, { field: "document" }),
@@ -36,7 +28,7 @@ export default {
         X.ToDocumentUpdateByID(TodosCollection, null, ({ document }) => ({
           $set: document,
         })),
-        X.ToNovaByResultID(TodosCollection, setFilter),
+        X.ToNovaByResultID(TodosCollection),
       ],
       TodosDeleteOne: [
         X.CheckDocumentExists(TodosCollection),

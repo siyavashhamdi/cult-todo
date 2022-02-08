@@ -1,14 +1,16 @@
 /** @overridable */
 import { IRoute } from "@bluelibs/x-ui";
-import * as React from "react";
 
 import { SettingFilled } from "@ant-design/icons";
+import { Todo } from "../Todo";
 
 export const TODOS_LIST: IRoute = {
-  path: "/admin/todos",
-  component: () => {
-    console.error("This route is not available.");
-    return null;
+  path: "/todos",
+  component: Todo,
+  menu: {
+    key: "TODO",
+    label: "management.todos.menu.title",
+    icon: SettingFilled,
   },
 };
 

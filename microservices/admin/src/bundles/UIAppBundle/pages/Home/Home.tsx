@@ -38,7 +38,7 @@ export function Home() {
             <br />
             <Space>
               <Link to={router.path(Routes.DASHBOARD)}>
-                <Button icon={<UnorderedListOutlined />}>Todo List</Button>
+                <Button icon={<UnorderedListOutlined />}>Dashboard</Button>
               </Link>
               <Link to={router.path(Routes.LOGIN)}>
                 <Button icon={<LockOutlined />}>Login</Button>

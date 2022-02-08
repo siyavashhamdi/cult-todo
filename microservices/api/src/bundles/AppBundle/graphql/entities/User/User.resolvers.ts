@@ -3,6 +3,7 @@ export default {
     User: {},
     UserProfile: {},
     UserRole: {
+      ADMIN: "ADMIN",
       TODOER: "TODOER",
     },
   },

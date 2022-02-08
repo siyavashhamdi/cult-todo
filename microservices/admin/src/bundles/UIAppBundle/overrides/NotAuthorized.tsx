@@ -41,7 +41,7 @@ export function NotAuthorized() {
             <Space>
               {isLoggedIn && (
                 <Link to={router.path(Routes.DASHBOARD)}>
-                  <Button>Todo List</Button>
+                  <Button>Dashboard</Button>
                 </Link>
               )}
               {!isLoggedIn && (
