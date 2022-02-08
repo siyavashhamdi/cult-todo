@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import { Input, Button, Form } from "antd";
+import { useForm } from "antd/lib/form/Form";
 import { CopyOutlined } from "@ant-design/icons";
 
 import "./todo-form.scss";
@@ -12,8 +14,19 @@ export interface ITodoFormProps {
 }
 
 export function TodoForm({ onSubmit }: ITodoFormProps) {
+  const [form] = useForm();
+  const titleInputRef = useRef();
+
+  const handleFormSubmit = (document: ISubmitDocument) => {
+    form.resetFields();
+
+    (titleInputRef as React.MutableRefObject<HTMLInputElement>).current.focus();
+
+    onSubmit(document);
+  };
+
   return (
-    <Form onFinish={onSubmit}>
+    <Form form={form} onFinish={handleFormSubmit}>
       <Input.Group compact className="title-holder">
         <Form.Item
           name="title"
@@ -25,7 +38,12 @@ export function TodoForm({ onSubmit }: ITodoFormProps) {
             },
           ]}
         >
-          <Input allowClear className="input-add" placeholder="Todo title..." />
+          <Input
+            allowClear
+            ref={titleInputRef}
+            className="input-add"
+            placeholder="Todo title..."
+          />
         </Form.Item>
 
         <Form.Item>

@@ -30,6 +30,7 @@ export function Dashboard() {
       const allTodos = await todoCollection.insertAndGetAll(document.title);
 
       setTodos(allTodos);
+
       message.info("New title successfully is added.");
     } catch {
       message.error("Error on adding new title!");
