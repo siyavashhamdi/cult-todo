@@ -4,7 +4,7 @@ export default {
     UserProfile: {},
     UserRole: {
       ADMIN: "ADMIN",
-      TODOER: "TODOER",
+      END_USER: "END_USER",
     },
   },
 };

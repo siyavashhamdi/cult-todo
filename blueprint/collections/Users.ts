@@ -19,7 +19,7 @@ export const Users = collection({
     field({
       id: "roles",
       type: field.types.ENUM,
-      enumValues: ["ADMIN", "TODOER"],
+      enumValues: ["ADMIN", "END_USER"],
       isArray: true,
     }),
     field({

@@ -26,7 +26,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289ae" },
-      roles: ["TODOER", "ADMIN"],
+      roles: ["END_USER", "ADMIN"],
       updatedAt: { $date: 1644325317784 },
       createdAt: { $date: 1644261370682 },
       isDeleted: false,
@@ -50,7 +50,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b0" },
-      roles: ["TODOER"],
+      roles: ["END_USER"],
       updatedAt: { $date: 1644328500208 },
       createdAt: { $date: 1644301595890 },
       isDeleted: false,
@@ -62,7 +62,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b1" },
-      roles: ["TODOER", "ADMIN"],
+      roles: ["END_USER", "ADMIN"],
       updatedAt: { $date: 1644259389877 },
       createdAt: { $date: 1644285594370 },
       isDeleted: false,
@@ -74,7 +74,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b2" },
-      roles: ["TODOER", "ADMIN"],
+      roles: ["END_USER", "ADMIN"],
       updatedAt: { $date: 1644315198690 },
       createdAt: { $date: 1644264917326 },
       isDeleted: false,
@@ -98,7 +98,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b4" },
-      roles: ["TODOER"],
+      roles: ["END_USER"],
       updatedAt: { $date: 1644286171263 },
       createdAt: { $date: 1644275941973 },
       isDeleted: false,
@@ -110,7 +110,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b5" },
-      roles: ["TODOER"],
+      roles: ["END_USER"],
       updatedAt: { $date: 1644248532579 },
       createdAt: { $date: 1644292087556 },
       isDeleted: false,

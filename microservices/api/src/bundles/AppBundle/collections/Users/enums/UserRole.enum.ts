@@ -1,9 +1,9 @@
 export enum UserRole {
   ADMIN = "ADMIN",
-  TODOER = "TODOER",
+  END_USER = "END_USER",
 }
 
 export enum UserRoleLabels {
   "ADMIN" = "Admin",
-  "TODOER" = "Todoer",
+  "END_USER" = "End User",
 }

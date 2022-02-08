@@ -45,6 +45,6 @@ export default /* GraphQL */ `
 
   enum UserRole {
     ADMIN
-    TODOER
+    END_USER
   }
 `;

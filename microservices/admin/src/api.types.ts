@@ -434,7 +434,7 @@ export type UserProfileInput = {
 
 export enum UserRole {
   ADMIN = 'ADMIN',
-  TODOER = 'TODOER'
+  END_USER = 'END_USER'
 }
 
 export type UserUpdateInput = {

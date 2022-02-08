@@ -32,8 +32,8 @@ export class UserEditForm extends XForm {
               <Ant.Select.Option value="ADMIN" key="ADMIN">
                 Admin
               </Ant.Select.Option>
-              <Ant.Select.Option value="TODOER" key="TODOER">
-                Todoer
+              <Ant.Select.Option value="END_USER" key="END_USER">
+                End User
               </Ant.Select.Option>
             </Ant.Select>
           </Ant.Form.Item>
