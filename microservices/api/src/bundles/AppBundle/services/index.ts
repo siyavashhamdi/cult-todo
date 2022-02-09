@@ -1,1 +1,1 @@
-export * from "./XPassword.service";
+export * from "./EndUser.service";

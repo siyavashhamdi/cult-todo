@@ -105,6 +105,7 @@ export type Mutation = {
   UsersInsertOne?: Maybe<User>;
   UsersUpdateOne: User;
   UsersDeleteOne?: Maybe<Scalars['Boolean']>;
+  registerWithRole: RegistrationResponse;
   register: RegistrationResponse;
   changePassword?: Maybe<Scalars['Boolean']>;
   login: LoginResponse;
@@ -177,6 +178,11 @@ export type MutationUsersUpdateOneArgs = {
 
 export type MutationUsersDeleteOneArgs = {
   _id: Scalars['ObjectId'];
+};
+
+
+export type MutationregisterWithRoleArgs = {
+  input: RegistrationInput;
 };
 
 

@@ -13,7 +13,6 @@ import { EmailBundle } from "@bluelibs/email-bundle";
 import { ValidatorBundle } from "@bluelibs/validator-bundle";
 import { XS3Bundle } from "@bluelibs/x-s3-bundle";
 import { UsersCollection } from "../bundles/AppBundle/collections";
-import { XPasswordService } from "../bundles/AppBundle/services/XPassword.service";
 
 import env from "./env";
 
@@ -46,7 +45,7 @@ export const kernel = new Kernel({
     }),
     new EmailBundle(),
     new PasswordBundle(),
-    new XPasswordBundle({ services: { XPasswordService } }),
+    new XPasswordBundle(),
     new XS3Bundle({
       accessKeyId: env.AWS_ACCESS_KEY_ID,
       secretAccessKey: env.AWS_SECRET_ACCESS_KEY,

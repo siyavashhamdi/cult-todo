@@ -19,6 +19,29 @@ type AppUserType = GuardianUserType & {
 type AppRegisterType = GuardianUserRegistrationType;
 
 export class AppGuardian extends GuardianSmart<AppUserType, AppRegisterType> {
+  async register(user: AppRegisterType): Promise<string | null> {
+    const response = await this.apolloClient.mutate({
+      mutation: gql`
+        mutation RegisterWithRole($input: RegistrationInput!) {
+          registerWithRole(input: $input) {
+            token
+          }
+        }
+      `,
+      variables: {
+        input: user,
+      },
+    });
+
+    const { token } = response.data.registerWithRole;
+
+    if (token) {
+      await this.storeToken(token);
+    }
+
+    return token;
+  }
+
   protected retrieveUser(): Promise<AppUserType> {
     return this.apolloClient
       .query({
