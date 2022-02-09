@@ -1,7 +1,7 @@
 /** @overridable */
 import { IRoute } from "@bluelibs/x-ui";
 
-import { SettingFilled } from "@ant-design/icons";
+import { UnorderedListOutlined } from "@ant-design/icons";
 import { Todo } from "../Todo";
 
 export const TODOS_LIST: IRoute = {
@@ -10,7 +10,7 @@ export const TODOS_LIST: IRoute = {
   menu: {
     key: "TODO",
     label: "management.todos.menu.title",
-    icon: SettingFilled,
+    icon: UnorderedListOutlined,
   },
 };
 

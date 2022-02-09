@@ -13,12 +13,10 @@ export function Dashboard() {
       if (collectionClass === null) {
         return null;
       }
-      return (
-        <Col span={8} key={idx}>
-          <DashboardStats collectionClass={collectionClass} key={idx} />
-        </Col>
-      );
+
+      return <DashboardStats key={idx} collectionClass={collectionClass} />;
     });
+
   return (
     <UIComponents.AdminLayout>
       <PageHeader title="Dashboard" />
@@ -37,14 +35,24 @@ export function DashboardStats(props: {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    collection.count({}).then((result) => {
-      setCount(result);
-    });
+    (async () => {
+      try {
+        const collectionCount = await collection.count({});
+
+        setCount(collectionCount);
+      } catch {}
+    })();
   }, []);
 
   return (
-    <Card title={collection.getName()}>
-      <h1>Total: {count}</h1>
-    </Card>
+    <>
+      {count !== null && (
+        <Col span={8}>
+          <Card title={collection.getName()}>
+            <h1>Total: {count}</h1>
+          </Card>
+        </Col>
+      )}
+    </>
   );
 }
