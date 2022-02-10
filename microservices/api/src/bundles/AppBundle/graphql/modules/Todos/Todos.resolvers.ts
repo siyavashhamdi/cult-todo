@@ -3,7 +3,7 @@ import { IGraphQLContext, IResolverMap } from "@bluelibs/graphql-bundle";
 import { TodoInsertInput, TodoUpdateInput } from "../../../services/inputs";
 import { TodosCollection } from "../../../collections/Todos/Todos.collection";
 
-const AddModifySecurityFilters = X.Secure([
+const AddOwnershipFilters = X.Secure([
   {
     match: X.Secure.Match.Roles("ADMIN"),
   },
@@ -55,7 +55,7 @@ export default {
       ],
 
       TodosUpdateOne: [
-        AddModifySecurityFilters,
+        AddOwnershipFilters,
         X.ToModel(TodoUpdateInput, { field: "document" }),
         X.Validate({ field: "document" }),
         X.CheckDocumentExists(TodosCollection),
@@ -66,7 +66,7 @@ export default {
       ],
 
       TodosDeleteOne: [
-        AddModifySecurityFilters,
+        AddOwnershipFilters,
         X.CheckDocumentExists(TodosCollection),
         X.ToDocumentDeleteByID(TodosCollection),
       ],
