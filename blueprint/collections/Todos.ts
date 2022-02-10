@@ -15,7 +15,7 @@ export const Todos = collection({
     shortcuts.field.softdeletable(),
 
     field.string("title", { isRequired: true }),
-    field.boolean("isChecked", { isRequired: false, defaultValue: false }),
+    field.boolean("isChecked", { isRequired: true }),
   ],
   relations: [
     relation({

@@ -8,7 +8,7 @@ export default /* GraphQL */ `
     createdAt: Date!
     createdBy: User
     createdById: ObjectId
-    isChecked: Boolean
+    isChecked: Boolean!
     title: String!
 
     """

@@ -1,5 +1,6 @@
 export default /* GraphQL */ `
   input UserUpdateInput {
+    email: String
     isEnabled: Boolean
     profile: UserProfileInput
     roles: [UserRole]

@@ -18,6 +18,14 @@ export class UserEditForm extends XForm {
 
     this.add([
       {
+        id: "email",
+        label: t("management.users.fields.email"),
+        name: ["email"],
+        required: true,
+        component: Ant.Input,
+      },
+
+      {
         id: "roles",
         label: t("management.users.fields.roles"),
         name: ["roles"],
@@ -88,6 +96,7 @@ export class UserEditForm extends XForm {
   static getRequestBody(): QueryBodyType<User> {
     return {
       _id: 1,
+      email: 1,
       roles: 1,
       isEnabled: 1,
       profile: {

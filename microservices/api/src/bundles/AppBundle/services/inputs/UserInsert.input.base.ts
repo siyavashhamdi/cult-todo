@@ -14,6 +14,9 @@ export class UserProfileInput {
 
 @Schema()
 export class UserInsertInput {
+  @Is(a.string().required())
+  email: string;
+
   @Is(a.boolean().required())
   isEnabled: boolean;
 

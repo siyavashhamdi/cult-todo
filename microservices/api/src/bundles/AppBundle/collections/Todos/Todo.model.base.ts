@@ -19,8 +19,8 @@ export class Todo {
   @Is(an.objectId().nullable())
   createdById?: ObjectId;
 
-  @Is(a.boolean().nullable())
-  isChecked?: boolean = false;
+  @Is(a.boolean().required())
+  isChecked: boolean;
 
   /**
    * @description This field is used to identify if this object has been soft-deleted

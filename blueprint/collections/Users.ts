@@ -33,7 +33,6 @@ export const Users = collection({
     field({
       id: "email",
       type: field.types.STRING,
-      isReducer: true,
     }),
   ],
   relations: [...shortcuts.relations.blameable()],

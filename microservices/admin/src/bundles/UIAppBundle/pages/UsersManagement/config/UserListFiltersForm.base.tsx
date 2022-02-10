@@ -14,6 +14,17 @@ export class UserListFiltersForm extends XForm {
 
     this.add([
       {
+        id: "email",
+        label: t("management.users.fields.email"),
+        name: ["email"],
+        render: (props) => (
+          <Ant.Form.Item {...props}>
+            <Ant.Input />
+          </Ant.Form.Item>
+        ),
+      },
+
+      {
         id: "roles",
         label: t("management.users.fields.roles"),
         name: ["roles"],

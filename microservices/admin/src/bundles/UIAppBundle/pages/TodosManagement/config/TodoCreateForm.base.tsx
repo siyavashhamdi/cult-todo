@@ -35,7 +35,7 @@ export class TodoCreateForm extends XForm {
         id: "isChecked",
         label: t("management.todos.fields.isChecked"),
         name: ["isChecked"],
-        initialValue: false,
+        required: true,
         render: (props) => (
           <Ant.Form.Item {...props}>
             <Ant.Radio.Group>

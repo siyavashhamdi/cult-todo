@@ -6,13 +6,13 @@ Note: Before running the following scripts, make sure that you have created `.en
 
 ```bash
 cd microservices/api
-npm install
+npm ci
 npm run start:dev
 ```
 
 ```bash
 cd microservices/admin
-npm install
+npm ci
 # npm run generate # Run it first time or when GRAPHQL API Changes.
 npm run start:dev
 ```

@@ -20,6 +20,14 @@ export class UserCreateForm extends XForm {
 
     this.add([
       {
+        id: "email",
+        label: t("management.users.fields.email"),
+        name: ["email"],
+        required: true,
+        component: Ant.Input,
+      },
+
+      {
         id: "roles",
         label: t("management.users.fields.roles"),
         name: ["roles"],

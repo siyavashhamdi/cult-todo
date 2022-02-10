@@ -14,6 +14,9 @@ export class UserProfileInput {
 
 @Schema()
 export class UserUpdateInput {
+  @Is(a.string().nullable())
+  email?: string;
+
   @Is(a.boolean().nullable())
   isEnabled?: boolean;
 

@@ -36,6 +36,7 @@ export class User {
   @Is(an.objectId().nullable())
   createdById?: ObjectId;
 
+  @Is(a.string().required())
   email: string;
 
   fullName: string;

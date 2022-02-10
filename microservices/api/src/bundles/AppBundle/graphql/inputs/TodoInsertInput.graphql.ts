@@ -1,7 +1,7 @@
 export default /* GraphQL */ `
   input TodoInsertInput {
     createdById: ObjectId
-    isChecked: Boolean
+    isChecked: Boolean!
     title: String!
   }
 `;

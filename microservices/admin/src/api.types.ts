@@ -384,7 +384,7 @@ export type Todo = {
   createdAt: Scalars['Date'];
   createdBy?: Maybe<User>;
   createdById?: Maybe<Scalars['ObjectId']>;
-  isChecked?: Maybe<Scalars['Boolean']>;
+  isChecked: Scalars['Boolean'];
   title: Scalars['String'];
   /** Represents the last time when the object was updated */
   updatedAt: Scalars['Date'];
@@ -392,7 +392,7 @@ export type Todo = {
 
 export type TodoInsertInput = {
   createdById?: Maybe<Scalars['ObjectId']>;
-  isChecked?: Maybe<Scalars['Boolean']>;
+  isChecked: Scalars['Boolean'];
   title: Scalars['String'];
 };
 
@@ -426,6 +426,7 @@ export type User = {
 };
 
 export type UserInsertInput = {
+  email: Scalars['String'];
   isEnabled: Scalars['Boolean'];
   profile: UserProfileInput;
   roles: Array<Maybe<UserRole>>;
@@ -448,6 +449,7 @@ export enum UserRole {
 }
 
 export type UserUpdateInput = {
+  email?: Maybe<Scalars['String']>;
   isEnabled?: Maybe<Scalars['Boolean']>;
   profile?: Maybe<UserProfileInput>;
   roles?: Maybe<Array<Maybe<UserRole>>>;

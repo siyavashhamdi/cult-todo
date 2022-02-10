@@ -7,8 +7,8 @@ export class TodoInsertInput {
   @Is(an.objectId().nullable())
   createdById?: ObjectId;
 
-  @Is(a.boolean().nullable())
-  isChecked?: boolean = false;
+  @Is(a.boolean().required())
+  isChecked: boolean;
 
   @Is(a.string().required())
   title: string;
