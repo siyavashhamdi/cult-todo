@@ -3,24 +3,7 @@ import { IGraphQLContext, IResolverMap } from "@bluelibs/graphql-bundle";
 import { TodoInsertInput, TodoUpdateInput } from "../../../services/inputs";
 import { TodosCollection } from "../../../collections/Todos/Todos.collection";
 
-const querySecure = X.Secure([
-  {
-    match: X.Secure.Match.Roles("ADMIN"),
-  },
-  {
-    match: X.Secure.Match.Roles("END_USER"),
-    run: [
-      X.Secure.ApplyNovaOptions((_, _args, ctx: any, _ast) => {
-        const { userId } = ctx;
-        const options = { filters: { createdById: userId } };
-
-        return options;
-      }),
-    ],
-  },
-]);
-
-const mutationModifySecure = X.Secure([
+const AddModifySecurityFilters = X.Secure([
   {
     match: X.Secure.Match.Roles("ADMIN"),
   },
@@ -30,15 +13,26 @@ const mutationModifySecure = X.Secure([
   },
 ]);
 
-const mutationInsertSecure = X.Secure([
-  {
-    match: X.Secure.Match.Roles(["ADMIN", "END_USER"]),
-  },
-]);
-
 export default {
   Query: [
-    [querySecure],
+    [
+      X.Secure([
+        {
+          match: X.Secure.Match.Roles("ADMIN"),
+        },
+        {
+          match: X.Secure.Match.Roles("END_USER"),
+          run: [
+            X.Secure.ApplyNovaOptions((_, _args, ctx: any, _ast) => {
+              const { userId } = ctx;
+              const options = { filters: { createdById: userId } };
+
+              return options;
+            }),
+          ],
+        },
+      ]),
+    ],
     {
       TodosFindOne: [X.ToNovaOne(TodosCollection)],
       TodosFind: [X.ToNova(TodosCollection)],
@@ -49,7 +43,11 @@ export default {
     [],
     {
       TodosInsertOne: [
-        mutationInsertSecure,
+        X.Secure([
+          {
+            match: X.Secure.Match.Roles(["ADMIN", "END_USER"]),
+          },
+        ]),
         X.ToModel(TodoInsertInput, { field: "document" }),
         X.Validate({ field: "document" }),
         X.ToDocumentInsert(TodosCollection),
@@ -57,7 +55,7 @@ export default {
       ],
 
       TodosUpdateOne: [
-        mutationModifySecure,
+        AddModifySecurityFilters,
         X.ToModel(TodoUpdateInput, { field: "document" }),
         X.Validate({ field: "document" }),
         X.CheckDocumentExists(TodosCollection),
@@ -68,7 +66,7 @@ export default {
       ],
 
       TodosDeleteOne: [
-        mutationModifySecure,
+        AddModifySecurityFilters,
         X.CheckDocumentExists(TodosCollection),
         X.ToDocumentDeleteByID(TodosCollection),
       ],

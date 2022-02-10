@@ -15,12 +15,12 @@ export interface ITodoFormProps {
 
 export function TodoForm({ onSubmit }: ITodoFormProps) {
   const [form] = useForm();
-  const titleInputRef = useRef();
+  const titleInputRef = useRef<Input>();
 
   const handleFormSubmit = (document: ISubmitDocument) => {
     form.resetFields();
 
-    (titleInputRef as React.MutableRefObject<HTMLInputElement>).current.focus();
+    titleInputRef.current.focus();
 
     onSubmit(document);
   };
