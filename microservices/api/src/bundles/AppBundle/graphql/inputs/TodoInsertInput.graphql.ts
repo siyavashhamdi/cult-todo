@@ -1,6 +1,6 @@
 export default /* GraphQL */ `
   input TodoInsertInput {
-    createdById: ObjectId!
+    createdById: ObjectId
     isChecked: Boolean
     title: String!
   }

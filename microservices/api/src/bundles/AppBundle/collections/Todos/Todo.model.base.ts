@@ -14,10 +14,10 @@ export class Todo {
   @Is(a.date().required())
   createdAt: Date;
 
-  createdBy: User;
+  createdBy?: User;
 
-  @Is(an.objectId().required())
-  createdById: ObjectId;
+  @Is(an.objectId().nullable())
+  createdById?: ObjectId;
 
   @Is(a.boolean().nullable())
   isChecked?: boolean = false;

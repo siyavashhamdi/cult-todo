@@ -52,7 +52,6 @@ export class TodoEditForm extends XForm {
         id: "createdById",
         label: t("management.todos.fields.createdBy"),
         name: ["createdById"],
-        required: true,
         render: (props) => (
           <Ant.Form.Item {...props}>
             <UIComponents.RemoteSelect

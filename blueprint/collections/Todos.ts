@@ -21,6 +21,7 @@ export const Todos = collection({
     relation({
       id: "createdBy",
       to: "Users",
+      isRequired: false,
     }),
   ],
 });
