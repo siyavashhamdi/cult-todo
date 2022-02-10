@@ -1,8 +1,8 @@
 /** @overridable */
 export const features = {
-  create: false,
-  delete: false,
-  edit: false,
-  list: false,
-  view: false,
+  create: true,
+  delete: true,
+  edit: true,
+  list: true,
+  view: true,
 };

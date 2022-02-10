@@ -1,14 +1,9 @@
-import { collection, field, shortcuts } from "../utils";
+import { collection, field, relation, shortcuts } from "../utils";
 
 export const Todos = collection({
   id: "Todos",
   ui: {
-    list: false,
-    edit: false,
-    create: false,
-    view: false,
-    delete: false,
-    listFilters: false,
+    icon: "UnorderedListOutlined",
   },
   behaviors: {
     timestampable: true,
@@ -22,5 +17,10 @@ export const Todos = collection({
     field.string("title", { isRequired: true }),
     field.boolean("isChecked", { isRequired: false, defaultValue: false }),
   ],
-  relations: [],
+  relations: [
+    relation({
+      id: "createdBy",
+      to: "Users",
+    }),
+  ],
 });

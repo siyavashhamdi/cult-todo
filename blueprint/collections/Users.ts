@@ -2,6 +2,9 @@ import { collection, field, shortcuts } from "../utils";
 
 export const Users = collection({
   id: "Users",
+  ui: {
+    icon: "UserOutlined",
+  },
   representedBy: "fullName",
   behaviors: {
     softdeletable: true,

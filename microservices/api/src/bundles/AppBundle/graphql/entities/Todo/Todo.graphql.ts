@@ -6,6 +6,8 @@ export default /* GraphQL */ `
     Represents the date when this object was created
     """
     createdAt: Date!
+    createdBy: User!
+    createdById: ObjectId!
     isChecked: Boolean
     title: String!
 

@@ -1,13 +1,12 @@
 /** @overridable */
 import { IRoute } from "@bluelibs/x-ui";
-import * as React from "react";
+import { UserOutlined } from "@ant-design/icons";
+import { UserRole } from "@root/api.types";
+
 import { UsersList } from "../components/List/UsersList";
 import { UsersCreate } from "../components/Create/UsersCreate";
 import { UsersEdit } from "../components/Edit/UsersEdit";
 import { UsersView } from "../components/View/UsersView";
-
-import { UserOutlined } from "@ant-design/icons";
-import { UserRole } from "@root/api.types";
 
 export const USERS_LIST: IRoute = {
   path: "/admin/users",

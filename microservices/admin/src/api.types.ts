@@ -382,6 +382,8 @@ export type Todo = {
   _id?: Maybe<Scalars['ObjectId']>;
   /** Represents the date when this object was created */
   createdAt: Scalars['Date'];
+  createdBy: User;
+  createdById: Scalars['ObjectId'];
   isChecked?: Maybe<Scalars['Boolean']>;
   title: Scalars['String'];
   /** Represents the last time when the object was updated */
@@ -389,11 +391,13 @@ export type Todo = {
 };
 
 export type TodoInsertInput = {
+  createdById: Scalars['ObjectId'];
   isChecked?: Maybe<Scalars['Boolean']>;
   title: Scalars['String'];
 };
 
 export type TodoUpdateInput = {
+  createdById?: Maybe<Scalars['ObjectId']>;
   isChecked?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
 };

@@ -1,6 +1,7 @@
 /** @overridable */
 import { ObjectId } from "@bluelibs/ejson";
 import { Schema, Is, a, an } from "@bluelibs/validator-bundle";
+import { User } from "../";
 
 @Schema()
 export class Todo {
@@ -12,6 +13,11 @@ export class Todo {
    */
   @Is(a.date().required())
   createdAt: Date;
+
+  createdBy: User;
+
+  @Is(an.objectId().required())
+  createdById: ObjectId;
 
   @Is(a.boolean().nullable())
   isChecked?: boolean = false;

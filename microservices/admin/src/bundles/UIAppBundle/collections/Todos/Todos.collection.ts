@@ -4,7 +4,7 @@ import {
   CollectionTransformMap,
 } from "@bluelibs/x-ui";
 import { Todo } from "@root/api.types";
-import {} from "@bundles/UIAppBundle/collections";
+import { UsersCollection } from "@bundles/UIAppBundle/collections";
 import { ObjectId } from "@bluelibs/ejson";
 
 export type { Todo };
@@ -23,7 +23,13 @@ export class TodosCollection extends Collection<Todo> {
 
   // Return here the relations with other configs
   getLinks(): CollectionLinkConfig<Todo>[] {
-    return [];
+    return [
+      {
+        collection: () => UsersCollection,
+        name: "createdBy",
+        field: "createdById",
+      },
+    ];
   }
 
   // Return here how you want to transform certain fields

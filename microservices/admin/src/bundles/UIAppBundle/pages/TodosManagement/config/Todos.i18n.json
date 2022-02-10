@@ -11,10 +11,13 @@
           "isDeleted": "isDeleted",
           "isDeleted_description": "This field is used to identify if this object has been soft-deleted",
           "title": "Title",
-          "isChecked": "Is Checked"
+          "isChecked": "Is Checked",
+          "createdById": "createdById",
+          "createdBy": "Created By"
         },
         "menu": {
-          "title": "Todos"
+          "title": "Todos",
+          "list_title": "Todo List"
         },
         "list": {
           "header": "Todos List",
