@@ -20,6 +20,10 @@ import { TODOS_READ_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
 import { TodoForm, ISubmitDocument } from "../../components/Todos/TodoForm";
 import { TodoList } from "../../components/Todos/TodoList";
 
+type ReadQueryResult = {
+  TodoEndUserRead: Todo[];
+};
+
 export function Todo() {
   const UIComponents = useUIComponents();
   const [todos, setTodos] = useState<Collections.Todo[]>([]);
@@ -33,10 +37,6 @@ export function Todo() {
   );
 
   const [deleteTodo] = useMutation<void>(TODOS_DELETE_MUTATION);
-
-  type ReadQueryResult = {
-    TodoEndUserRead: Todo[];
-  };
 
   const readTodo = useQuery<ReadQueryResult>(TODOS_READ_QUERY);
 

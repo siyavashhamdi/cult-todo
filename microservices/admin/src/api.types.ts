@@ -257,6 +257,7 @@ export type Query = {
   UsersFindOneByID?: Maybe<User>;
   UsersFind: Array<Maybe<User>>;
   UsersCount: Scalars['Int'];
+  TodoEndUserCount: Scalars['Int'];
   TodoEndUserRead: Array<Maybe<Todo>>;
   me: User;
   framework?: Maybe<Scalars['String']>;

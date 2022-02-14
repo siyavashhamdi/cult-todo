@@ -9,3 +9,9 @@ export const TODOS_READ_QUERY = gql`
     }
   }
 `;
+
+export const TODOS_COUNT_QUERY = gql`
+  query TodoEndUserCount {
+    TodoEndUserCount
+  }
+`;

@@ -64,4 +64,8 @@ export class TodoService {
 
     return true;
   }
+
+  public async count(createdById: ObjectId) {
+    return this.todosCollection.count({ createdById });
+  }
 }

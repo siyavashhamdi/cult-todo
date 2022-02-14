@@ -5,6 +5,12 @@ import { Constructor } from "@bluelibs/core";
 import { Collections } from "@bundles/UIAppBundle";
 import { useAppGuardian } from "@bundles/UIAppBundle/services/AppGuardian";
 import { UserRole } from "@root/api.types";
+import { useQuery } from "@apollo/client";
+import { TODOS_COUNT_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
+
+type TodoCountQueryResult = {
+  TodoEndUserCount: number;
+};
 
 export function Dashboard() {
   const UIComponents = useUIComponents();
@@ -19,35 +25,47 @@ export function Dashboard() {
         return null;
       }
 
-      return <DashboardStats key={idx} collectionClass={collectionClass} />;
+      return (
+        <DashboardStats
+          isAdminRole={isAdminRole}
+          key={idx}
+          collectionClass={collectionClass}
+        />
+      );
     });
 
   return (
     <UIComponents.AdminLayout>
       <PageHeader title="Dashboard" />
 
-      {isAdminRole && (
-        <Card>
-          <Row gutter={[16, 24]}>{cards}</Row>
-        </Card>
-      )}
+      <Card>
+        <Row gutter={[16, 24]}>{cards}</Row>
+      </Card>
     </UIComponents.AdminLayout>
   );
 }
 
 export function DashboardStats(props: {
   collectionClass: Constructor<Collection>;
+  isAdminRole: boolean;
 }) {
   const collection = use(props.collectionClass);
   const [count, setCount] = useState<number | null>(null);
 
+  const countTodoQuery = useQuery<TodoCountQueryResult>(TODOS_COUNT_QUERY);
+
   useEffect(() => {
     (async () => {
-      try {
+      if (props.isAdminRole) {
         const collectionCount = await collection.count({});
 
         setCount(collectionCount);
-      } catch {}
+      } else if (collection.getName() === "Todos") {
+        const fetchedCountTodo = await countTodoQuery.fetchMore({});
+        const { TodoEndUserCount } = fetchedCountTodo.data;
+
+        setCount(TodoEndUserCount);
+      }
     })();
   }, []);
 
