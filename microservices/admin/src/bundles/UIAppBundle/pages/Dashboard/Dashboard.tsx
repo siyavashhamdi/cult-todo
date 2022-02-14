@@ -1,11 +1,16 @@
-import { Collection, useUIComponents, use } from "@bluelibs/x-ui";
 import { useEffect, useState } from "react";
 import { Card, PageHeader, Row, Col } from "antd";
+import { Collection, useUIComponents, use } from "@bluelibs/x-ui";
 import { Constructor } from "@bluelibs/core";
 import { Collections } from "@bundles/UIAppBundle";
+import { useAppGuardian } from "@bundles/UIAppBundle/services/AppGuardian";
+import { UserRole } from "@root/api.types";
 
 export function Dashboard() {
   const UIComponents = useUIComponents();
+
+  const guardian = useAppGuardian();
+  const isAdminRole = guardian.hasRole(UserRole.ADMIN);
 
   const cards = Object.values(Collections)
     .filter((v) => Boolean(v))
@@ -21,9 +26,11 @@ export function Dashboard() {
     <UIComponents.AdminLayout>
       <PageHeader title="Dashboard" />
 
-      <Card>
-        <Row gutter={[16, 24]}>{cards}</Row>
-      </Card>
+      {isAdminRole && (
+        <Card>
+          <Row gutter={[16, 24]}>{cards}</Row>
+        </Card>
+      )}
     </UIComponents.AdminLayout>
   );
 }

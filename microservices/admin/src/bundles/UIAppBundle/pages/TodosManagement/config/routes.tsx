@@ -16,6 +16,7 @@ export const USER_TODOS_LIST: IRoute = {
     label: "management.todos.menu.list_title",
     icon: CheckSquareOutlined,
   },
+  roles: [UserRole.END_USER],
 };
 
 export const TODOS_LIST: IRoute = {
