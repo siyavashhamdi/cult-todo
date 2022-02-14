@@ -3,16 +3,44 @@ import { PageHeader, message } from "antd";
 import { useUIComponents, use } from "@bluelibs/x-ui";
 import { ObjectId } from "@bluelibs/ejson";
 import { Collections } from "@bundles/UIAppBundle";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  TODOS_CREATE_MUTATION,
+  TODOS_DELETE_MUTATION,
+  TODOS_UPDATE_MUTATION,
+} from "@bundles/UIAppBundle/mutations/todos.mutation";
+import {
+  EndUsersTodosCreateInput,
+  EndUsersTodosUpdateInput,
+  Todo,
+} from "@root/api.types";
 
 import { TodosCollection } from "../../collections/";
 import { TodoForm, ISubmitDocument } from "../../components/Todos/TodoForm";
 import { TodoList } from "../../components/Todos/TodoList";
+import { TODOS_READ_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
 
 export function Todo() {
   const UIComponents = useUIComponents();
   const todoCollection = use(TodosCollection);
 
   const [todos, setTodos] = useState<Collections.Todo[]>([]);
+
+  const [createTodo] = useMutation<EndUsersTodosCreateInput>(
+    TODOS_CREATE_MUTATION
+  );
+
+  const [updateTodo] = useMutation<EndUsersTodosUpdateInput>(
+    TODOS_UPDATE_MUTATION
+  );
+
+  const [deleteTodo] = useMutation<void>(TODOS_DELETE_MUTATION);
+
+  type ReadQueryResult = {
+    TodoEndUserRead: Todo[];
+  };
+
+  const readTodo = useQuery<ReadQueryResult>(TODOS_READ_QUERY);
 
   useEffect(() => {
     (async () => {
@@ -27,9 +55,18 @@ export function Todo() {
 
   const handleSubmitForm = async (document: ISubmitDocument) => {
     try {
-      const allTodos = await todoCollection.insertAndGetAll(document.title);
+      await createTodo({
+        variables: {
+          input: {
+            title: document.title,
+          },
+        },
+      });
 
-      setTodos(allTodos);
+      const fetchedTodos = await readTodo.fetchMore({});
+      const { TodoEndUserRead: data } = fetchedTodos.data;
+
+      setTodos(data);
 
       message.info("New title successfully is added.");
     } catch {
@@ -43,7 +80,14 @@ export function Todo() {
 
     if (targetTodo) {
       try {
-        const resUpdate = await todoCollection.updateOne(id, { isChecked });
+        const resUpdate = await updateTodo({
+          variables: {
+            id,
+            input: {
+              isChecked,
+            },
+          },
+        });
 
         if (resUpdate) {
           targetTodo.isChecked = isChecked;
@@ -58,7 +102,11 @@ export function Todo() {
 
   const handleDeleteTodo = async (id: ObjectId) => {
     try {
-      const resDelete = await todoCollection.deleteOne(id);
+      const resDelete = await deleteTodo({
+        variables: {
+          id,
+        },
+      });
 
       if (resDelete) {
         const newTodo = [...todos].filter((t) => t._id !== id);

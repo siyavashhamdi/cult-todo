@@ -74,6 +74,14 @@ export type DocumentUpdateInput = {
 };
 
 
+export type EndUsersTodosCreateInput = {
+  title: Scalars['String'];
+};
+
+export type EndUsersTodosUpdateInput = {
+  isChecked: Scalars['Boolean'];
+};
+
 export type ForgotPasswordInput = {
   email: Scalars['String'];
 };
@@ -105,6 +113,9 @@ export type Mutation = {
   UsersInsertOne?: Maybe<User>;
   UsersUpdateOne: User;
   UsersDeleteOne?: Maybe<Scalars['Boolean']>;
+  TodoEndUserCreate: Todo;
+  TodoEndUserDelete: Scalars['Boolean'];
+  TodoEndUserUpdate: Todo;
   registerWithRole: RegistrationResponse;
   register: RegistrationResponse;
   changePassword?: Maybe<Scalars['Boolean']>;
@@ -181,6 +192,22 @@ export type MutationUsersDeleteOneArgs = {
 };
 
 
+export type MutationTodoEndUserCreateArgs = {
+  input: EndUsersTodosCreateInput;
+};
+
+
+export type MutationTodoEndUserDeleteArgs = {
+  _id: Scalars['ObjectId'];
+};
+
+
+export type MutationTodoEndUserUpdateArgs = {
+  _id: Scalars['ObjectId'];
+  input: EndUsersTodosUpdateInput;
+};
+
+
 export type MutationregisterWithRoleArgs = {
   input: RegistrationInput;
 };
@@ -230,6 +257,7 @@ export type Query = {
   UsersFindOneByID?: Maybe<User>;
   UsersFind: Array<Maybe<User>>;
   UsersCount: Scalars['Int'];
+  TodoEndUserRead: Array<Maybe<Todo>>;
   me: User;
   framework?: Maybe<Scalars['String']>;
 };

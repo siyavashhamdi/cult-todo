@@ -5,8 +5,6 @@ import {
 } from "@bluelibs/x-ui";
 import { Todo } from "@root/api.types";
 import { UsersCollection } from "@bundles/UIAppBundle/collections";
-import { ObjectId } from "@bluelibs/ejson";
-
 export type { Todo };
 
 export class TodosCollection extends Collection<Todo> {
@@ -38,11 +36,5 @@ export class TodosCollection extends Collection<Todo> {
       createdAt: (v) => new Date(v),
       updatedAt: (v) => new Date(v),
     };
-  }
-
-  async insertAndGetAll(title: string) {
-    await this.insertOne({ title, isChecked: false });
-
-    return this.find({}, { _id: 1, title: 1, isChecked: 1, createdAt: 1 });
   }
 }
