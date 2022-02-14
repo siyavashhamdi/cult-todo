@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PageHeader, message } from "antd";
+import { cloneDeep } from "lodash";
 import { useUIComponents, use } from "@bluelibs/x-ui";
 import { ObjectId } from "@bluelibs/ejson";
 import { Collections } from "@bundles/UIAppBundle";
@@ -14,16 +15,13 @@ import {
   EndUsersTodosUpdateInput,
   Todo,
 } from "@root/api.types";
+import { TODOS_READ_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
 
-import { TodosCollection } from "../../collections/";
 import { TodoForm, ISubmitDocument } from "../../components/Todos/TodoForm";
 import { TodoList } from "../../components/Todos/TodoList";
-import { TODOS_READ_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
 
 export function Todo() {
   const UIComponents = useUIComponents();
-  const todoCollection = use(TodosCollection);
-
   const [todos, setTodos] = useState<Collections.Todo[]>([]);
 
   const [createTodo] = useMutation<EndUsersTodosCreateInput>(
@@ -44,12 +42,10 @@ export function Todo() {
 
   useEffect(() => {
     (async () => {
-      const result = await todoCollection.find(
-        {},
-        { _id: 1, title: 1, isChecked: 1, createdAt: 1 }
-      );
+      const fetchedTodos = await readTodo.fetchMore({});
+      const { TodoEndUserRead: data } = fetchedTodos.data;
 
-      setTodos(result);
+      setTodos(cloneDeep(data));
     })();
   }, []);
 
