@@ -86,5 +86,8 @@ module.exports = function (env) {
         exclude: "node_modules",
       }),
     ],
+    performance: {
+      hints: false
+    }
   };
 };
