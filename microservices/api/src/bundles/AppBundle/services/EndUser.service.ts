@@ -26,6 +26,6 @@ export class EndUserService {
 
     await this.securityService.setRoles(userId, [UserRole.END_USER]);
 
-    return { token };
+    return { userId, token };
   }
 }
