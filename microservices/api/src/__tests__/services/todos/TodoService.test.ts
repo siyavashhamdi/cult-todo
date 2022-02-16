@@ -19,7 +19,7 @@ describe("Testing todo service", () => {
   } as RegistrationInput;
 
   const mockTodoInput = {
-    title: `Title-Todo-Test${randomBytes(20).toString("hex")}`,
+    title: `Title-Todo-Test-${randomBytes(20).toString("hex")}`,
   } as TodoInsertInput;
 
   let usersCollection: UsersCollection<IUser>;
@@ -77,8 +77,11 @@ describe("Testing todo service", () => {
       registeredUser.userId as ObjectId
     );
 
-    expect(todoAfterUpdate.isChecked).toBe(true);
-    expect(todoBeforeUpdate[0].title).toBe(todoAfterUpdate.title);
+    expect(todoAfterUpdate).toEqual({
+      ...todoBeforeUpdate[0],
+      isChecked: todoAfterUpdate.isChecked,
+      updatedAt: todoAfterUpdate.updatedAt,
+    });
   });
 
   test("Delete the todo", async () => {
