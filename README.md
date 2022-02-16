@@ -16,3 +16,10 @@ npm ci
 # npm run generate # Run it first time or when GRAPHQL API Changes.
 npm run start:dev
 ```
+
+### Tests
+
+```bash
+cd microservices/admin
+npm run test:dev
+```
