@@ -1,6 +1,8 @@
 import { ObjectId } from "mongodb";
+import { randomBytes } from "crypto";
 import { IUser, UserId } from "@bluelibs/security-bundle";
 import { UsersCollection } from "@bluelibs/security-mongo-bundle";
+import { RegistrationInput } from "@bluelibs/x-password-bundle";
 
 import { container } from "../../ecosystem";
 import { EndUserService } from "../../../bundles/AppBundle/services/EndUser.service";
@@ -8,25 +10,20 @@ import { EndUserService } from "../../../bundles/AppBundle/services/EndUser.serv
 describe("Testing EndUser Service", () => {
   const randomNum = Math.floor(Math.random() * 10000);
   const mockUserInput = {
-    email: `test-user-${randomNum}@bluelibs.com`,
+    email: `test-user-${randomBytes(20).toString("hex")}@bluelibs.com`,
     password: "blue1234",
     firstName: "Siya",
     lastName: "Hamdi",
-  };
-
-  let registeredUser: {
-    userId: UserId;
-    token: string;
-  };
+  } as RegistrationInput;
 
   let endUserService: EndUserService;
   let usersCollection: UsersCollection<IUser>;
 
+  let registeredUser: { userId: UserId; token: string };
+
   beforeAll(async () => {
     endUserService = container.get(EndUserService);
     usersCollection = container.get(UsersCollection);
-
-    registeredUser = await endUserService.register(mockUserInput);
   });
 
   afterAll(async () => {
@@ -34,6 +31,8 @@ describe("Testing EndUser Service", () => {
   });
 
   test("Register a valid user", async () => {
+    registeredUser = await endUserService.register(mockUserInput);
+
     const foundUser = await usersCollection.findOne({
       _id: registeredUser.userId as ObjectId,
     });
