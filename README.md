@@ -20,6 +20,6 @@ npm run start:dev
 ### Tests
 
 ```bash
-cd microservices/admin
+cd microservices/api
 npm run test:dev
 ```
