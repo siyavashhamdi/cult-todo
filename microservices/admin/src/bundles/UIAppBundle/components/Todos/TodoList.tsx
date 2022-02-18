@@ -18,7 +18,7 @@ export function TodoList({
   data,
   onDelete,
   onChange,
-  onPositionChanged: onOrderChanged,
+  onPositionChanged,
 }: ITodoListProps) {
   const [dragFrom, setDragFrom] = useState<ObjectId>(null);
   const [dropTo, setDropTo] = useState<ObjectId>(null);
@@ -44,7 +44,7 @@ export function TodoList({
               key={_id}
               onDragEnd={handleResetDragDrop}
               onDragOver={(ev) => handleDragOver(ev, _id)}
-              onDrop={() => onOrderChanged(dragFrom, dropTo)}
+              onDrop={() => onPositionChanged(dragFrom, dropTo)}
             >
               <div
                 draggable

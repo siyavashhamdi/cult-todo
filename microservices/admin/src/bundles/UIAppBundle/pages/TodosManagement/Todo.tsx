@@ -141,7 +141,7 @@ export function Todo() {
 
         setTodos(currTodo);
 
-        message.info("Todo orders are changed.");
+        message.info("Todo positions are changed.");
       }
     } catch {
       message.error("Error on delete!");

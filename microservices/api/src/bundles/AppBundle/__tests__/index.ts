@@ -1,6 +1,13 @@
-// import { container } from "../../../__tests__/ecosystem";
+import "./EndUserService.test";
+import "./TodoService.test";
 
-test("dummy", () => {
-  // Feel free to use container as if you were in a kernel context
-  expect(true).toBe(true);
+import { container } from "../../../__tests__/ecosystem";
+import { AppFixture } from "../fixtures";
+
+beforeAll(async () => {
+  return container.get(AppFixture).clean();
+});
+
+afterEach(async () => {
+  return container.get(AppFixture).clean();
 });
