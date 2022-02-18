@@ -1,4 +1,4 @@
-.list-holder {
+.lists-groups {
   .todo-title {
     display: inline;
   }
@@ -23,8 +23,9 @@
     cursor: pointer;
   }
 
-  .todo-holder {
-    display: inline;
+  .card-group {
+    min-height: 300px;
+    border: solid lightgray 1px;
   }
 
   .active-drag-drop {

@@ -18,7 +18,7 @@ import {
 import { TODOS_READ_QUERY } from "@bundles/UIAppBundle/mutations/todos.query";
 
 import { TodoForm, ISubmitDocument } from "../../components/Todos/TodoForm";
-import { TodoList } from "../../components/Todos/TodoList";
+import { TodoLists } from "../../components/Todos/TodoLists";
 
 type ReadQueryResult = {
   TodoEndUserRead: Todo[];
@@ -49,6 +49,13 @@ export function Todo() {
     })();
   }, []);
 
+  const refetchTodo = async () => {
+    const fetchedTodos = await readTodo.fetchMore({});
+    const { TodoEndUserRead: data } = fetchedTodos.data;
+
+    setTodos(cloneDeep(data));
+  };
+
   const handleSubmitForm = async (document: ISubmitDocument) => {
     try {
       await createTodo({
@@ -59,10 +66,7 @@ export function Todo() {
         },
       });
 
-      const fetchedTodos = await readTodo.fetchMore({});
-      const { TodoEndUserRead: data } = fetchedTodos.data;
-
-      setTodos(data);
+      await refetchTodo();
 
       message.info("New title successfully is added.");
     } catch {
@@ -86,9 +90,7 @@ export function Todo() {
         });
 
         if (resUpdate) {
-          targetTodo.isChecked = isChecked;
-
-          setTodos(currTodo);
+          await refetchTodo();
         }
       } catch {
         message.error("Error on updating todo status!");
@@ -134,12 +136,7 @@ export function Todo() {
           variables: { id: toId, input: { position: fromTodo.position } },
         });
 
-        const tempFromTodoPosition = fromTodo.position;
-
-        fromTodo.position = toTodo.position;
-        toTodo.position = tempFromTodoPosition;
-
-        setTodos(currTodo);
+        await refetchTodo();
 
         message.info("Todo positions are changed.");
       }
@@ -152,7 +149,7 @@ export function Todo() {
     <UIComponents.AdminLayout>
       <PageHeader title="TodoList" />
       <TodoForm onSubmit={handleSubmitForm} />
-      <TodoList
+      <TodoLists
         data={todos.sort((a, b) => a.position - b.position)}
         onChange={handleChangeTodo}
         onDelete={handleDeleteTodo}

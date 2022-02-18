@@ -26,7 +26,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289ae" },
-      roles: ["END_USER", "ADMIN"],
+      roles: ["END_USER"],
       updatedAt: { $date: 1644325317784 },
       createdAt: { $date: 1644261370682 },
       isDeleted: false,
@@ -38,7 +38,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289af" },
-      roles: ["ADMIN"],
+      roles: ["END_USER"],
       updatedAt: { $date: 1644283810608 },
       createdAt: { $date: 1644292561763 },
       isDeleted: false,
@@ -50,7 +50,7 @@ export default {
     },
     {
       _id: { $objectId: "62028045c3978d52bfc289b0" },
-      roles: ["END_USER"],
+      roles: ["ADMIN", "END_USER"],
       updatedAt: { $date: 1644328500208 },
       createdAt: { $date: 1644301595890 },
       isDeleted: false,

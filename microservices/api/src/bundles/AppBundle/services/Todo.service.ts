@@ -10,19 +10,31 @@ export class TodoService {
     protected readonly todosCollection: TodosCollection
   ) {}
 
-  public async create(
-    input: EndUsersTodosCreateInput,
-    userId: ObjectId
-  ): Promise<Todo> {
-    const lastTodoInPosition = await this.todosCollection
-      .find({ createdById: userId })
+  protected getLastPositionedTodo = async (
+    createdById: ObjectId,
+    isChecked?: boolean
+  ) => {
+    const query = { createdById } as Todo;
+
+    if (isChecked !== undefined) {
+      query.isChecked = isChecked;
+    }
+
+    const res = await this.todosCollection
+      .find(query)
       .sort({ position: -1 })
       .limit(1)
       .toArray();
 
-    const nextPosition = lastTodoInPosition.length
-      ? lastTodoInPosition[0].position + 1
-      : 0;
+    return res.length ? res[0] : null;
+  };
+
+  public async create(
+    input: EndUsersTodosCreateInput,
+    userId: ObjectId
+  ): Promise<Todo> {
+    const lastPositionedTodo = await this.getLastPositionedTodo(userId, false);
+    const nextPosition = lastPositionedTodo?.position + 1 || 0;
 
     const resInsert = await this.todosCollection.insertOne({
       title: input.title,
@@ -47,12 +59,21 @@ export class TodoService {
   ): Promise<Todo> {
     const $set = { updatedAt: new Date() } as Todo;
 
-    if (input.position !== null) {
+    if (input.position !== undefined) {
       $set.position = input.position;
     }
 
-    if (input.isChecked) {
+    if (input.isChecked !== undefined) {
       $set.isChecked = input.isChecked;
+
+      if (input.position === undefined) {
+        const lastPositionedTodo = await this.getLastPositionedTodo(
+          _userId,
+          input.isChecked
+        );
+
+        $set.position = lastPositionedTodo?.position + 1 || 0;
+      }
     }
 
     await this.todosCollection.updateOne({ _id: todoId }, { $set });

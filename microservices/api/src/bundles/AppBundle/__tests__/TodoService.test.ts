@@ -34,11 +34,11 @@ test("delete", async () => {
   const { userId } = await createEndUser(userInput);
   const todoBeforeDelete = await createTodo(todoInput, userId as ObjectId);
 
-  await container.get(TodoService).delete(todoBeforeDelete._id);
+  const todoService = container.get(TodoService);
 
-  const todoAfterDelete = await container
-    .get(TodoService)
-    .read(userId as ObjectId);
+  await todoService.delete(todoBeforeDelete._id);
+
+  const todoAfterDelete = await todoService.read(userId as ObjectId);
 
   expect(todoAfterDelete).toEqual([]);
 });
