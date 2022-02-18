@@ -9,6 +9,7 @@ export default /* GraphQL */ `
     createdBy: User
     createdById: ObjectId
     isChecked: Boolean!
+    position: Int!
     title: String!
 
     """

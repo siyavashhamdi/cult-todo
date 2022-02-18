@@ -20,6 +20,7 @@ describe("Testing todo service", () => {
 
   const mockTodoInput = {
     title: `Title-Todo-Test-${randomBytes(20).toString("hex")}`,
+    position: 0,
   } as TodoInsertInput;
 
   let usersCollection: UsersCollection<IUser>;

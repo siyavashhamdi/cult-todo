@@ -76,6 +76,20 @@ export class TodoList extends XList<Todo> {
         },
       },
       {
+        id: "position",
+        title: t("management.todos.fields.position"),
+        key: "management.todos.fields.position",
+        dataIndex: ["position"],
+        sorter: true,
+        render: (value, model) => {
+          const props = {
+            type: "number",
+            value,
+          };
+          return <UIComponents.AdminListItemRenderer {...props} />;
+        },
+      },
+      {
         id: "createdBy",
         title: t("management.todos.fields.createdBy"),
         key: "management.todos.fields.createdBy",
@@ -113,6 +127,7 @@ export class TodoList extends XList<Todo> {
       updatedAt: 1,
       title: 1,
       isChecked: 1,
+      position: 1,
       createdBy: {
         _id: 1,
         fullName: 1,

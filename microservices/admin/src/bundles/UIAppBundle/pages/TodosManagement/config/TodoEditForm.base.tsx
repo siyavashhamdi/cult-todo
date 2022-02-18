@@ -49,6 +49,14 @@ export class TodoEditForm extends XForm {
       },
 
       {
+        id: "position",
+        label: t("management.todos.fields.position"),
+        name: ["position"],
+        required: true,
+        component: Ant.InputNumber,
+      },
+
+      {
         id: "createdById",
         label: t("management.todos.fields.createdBy"),
         name: ["createdById"],
@@ -69,6 +77,7 @@ export class TodoEditForm extends XForm {
       _id: 1,
       title: 1,
       isChecked: 1,
+      position: 1,
       createdBy: {
         _id: 1,
         fullName: 1,

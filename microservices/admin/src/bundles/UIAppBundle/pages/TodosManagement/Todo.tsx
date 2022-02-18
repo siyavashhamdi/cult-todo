@@ -116,14 +116,47 @@ export function Todo() {
     }
   };
 
+  const handleChangedPosition = async (fromId: ObjectId, toId: ObjectId) => {
+    try {
+      const isInputValid =
+        fromId && toId && fromId.toString() !== toId.toString();
+
+      if (isInputValid) {
+        const currTodo = [...todos];
+        const fromTodo = currTodo.find((t) => t._id === fromId);
+        const toTodo = currTodo.find((t) => t._id === toId);
+
+        await updateTodo({
+          variables: { id: fromId, input: { position: toTodo.position } },
+        });
+
+        await updateTodo({
+          variables: { id: toId, input: { position: fromTodo.position } },
+        });
+
+        const tempFromTodoPosition = fromTodo.position;
+
+        fromTodo.position = toTodo.position;
+        toTodo.position = tempFromTodoPosition;
+
+        setTodos(currTodo);
+
+        message.info("Todo orders are changed.");
+      }
+    } catch {
+      message.error("Error on delete!");
+    }
+  };
+
   return (
     <UIComponents.AdminLayout>
       <PageHeader title="TodoList" />
       <TodoForm onSubmit={handleSubmitForm} />
       <TodoList
-        data={todos}
+        data={todos.sort((a, b) => a.position - b.position)}
         onChange={handleChangeTodo}
         onDelete={handleDeleteTodo}
+        onPositionChanged={handleChangedPosition}
       />
     </UIComponents.AdminLayout>
   );

@@ -79,7 +79,8 @@ export type EndUsersTodosCreateInput = {
 };
 
 export type EndUsersTodosUpdateInput = {
-  isChecked: Scalars['Boolean'];
+  isChecked?: Maybe<Scalars['Boolean']>;
+  position?: Maybe<Scalars['Int']>;
 };
 
 export type ForgotPasswordInput = {
@@ -414,6 +415,7 @@ export type Todo = {
   createdBy?: Maybe<User>;
   createdById?: Maybe<Scalars['ObjectId']>;
   isChecked: Scalars['Boolean'];
+  position: Scalars['Int'];
   title: Scalars['String'];
   /** Represents the last time when the object was updated */
   updatedAt: Scalars['Date'];
@@ -422,12 +424,14 @@ export type Todo = {
 export type TodoInsertInput = {
   createdById?: Maybe<Scalars['ObjectId']>;
   isChecked: Scalars['Boolean'];
+  position: Scalars['Int'];
   title: Scalars['String'];
 };
 
 export type TodoUpdateInput = {
   createdById?: Maybe<Scalars['ObjectId']>;
   isChecked?: Maybe<Scalars['Boolean']>;
+  position?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
 };
 
