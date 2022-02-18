@@ -10,6 +10,9 @@ export class TodoInsertInput {
   @Is(a.boolean().required())
   isChecked: boolean;
 
+  @Is(a.number().required())
+  position: number;
+
   @Is(a.string().required())
   title: string;
 }

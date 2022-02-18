@@ -16,6 +16,7 @@ export const Todos = collection({
 
     field.string("title", { isRequired: true }),
     field.boolean("isChecked", { isRequired: true }),
+    field.integer("position", { isRequired: true }),
   ],
   relations: [
     relation({

@@ -6,6 +6,7 @@ export const TODOS_READ_QUERY = gql`
       _id
       title
       isChecked
+      position
     }
   }
 `;

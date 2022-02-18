@@ -71,6 +71,17 @@ export class TodoListFiltersForm extends XForm {
       },
 
       {
+        id: "position",
+        label: t("management.todos.fields.position"),
+        name: ["position"],
+        render: (props) => (
+          <Ant.Form.Item {...props}>
+            <Ant.Slider range step={10} min={0} max={100000} />
+          </Ant.Form.Item>
+        ),
+      },
+
+      {
         id: "createdById",
         label: t("management.todos.fields.createdBy"),
         name: ["createdById"],

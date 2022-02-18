@@ -12,6 +12,7 @@
           "isDeleted_description": "This field is used to identify if this object has been soft-deleted",
           "title": "Title",
           "isChecked": "Is Checked",
+          "position": "Position",
           "createdById": "createdById",
           "createdBy": "Created By"
         },

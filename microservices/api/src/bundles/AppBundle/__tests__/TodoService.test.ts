@@ -21,12 +21,13 @@ test("update", async () => {
     .get(TodoService)
     .update(
       todoBeforeUpdate._id as ObjectId,
-      { isChecked: true },
+      { isChecked: true, position: 1 },
       userId as ObjectId
     );
 
   expect(todoBeforeUpdate.title).toEqual(todoAfterUpdate.title);
   expect(todoAfterUpdate.isChecked).toEqual(true);
+  expect(todoAfterUpdate.position).toEqual(1);
 });
 
 test("delete", async () => {

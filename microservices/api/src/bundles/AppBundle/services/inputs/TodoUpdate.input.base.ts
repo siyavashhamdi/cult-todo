@@ -10,6 +10,9 @@ export class TodoUpdateInput {
   @Is(a.boolean().nullable())
   isChecked?: boolean;
 
+  @Is(a.number().nullable())
+  position?: number;
+
   @Is(a.string().nullable())
   title?: string;
 }

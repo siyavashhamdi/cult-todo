@@ -10,4 +10,5 @@ export const userInput = {
 
 export const todoInput = {
   title: `Title-Todo-Test`,
+  position: 0,
 } as TodoInsertInput;

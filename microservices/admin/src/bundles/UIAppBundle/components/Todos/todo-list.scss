@@ -22,4 +22,19 @@
   .todo-delete {
     cursor: pointer;
   }
+
+  .todo-holder {
+    display: inline;
+  }
+
+  .active-drag-drop {
+    border: dashed 1px gray;
+    animation: dndChangeColor 1s infinite alternate;
+  }
+
+  @keyframes dndChangeColor {
+    to {
+      background-color: lightblue;
+    }
+  }
 }

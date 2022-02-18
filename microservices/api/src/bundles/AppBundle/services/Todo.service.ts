@@ -14,9 +14,20 @@ export class TodoService {
     input: EndUsersTodosCreateInput,
     userId: ObjectId
   ): Promise<Todo> {
+    const lastTodoInPosition = await this.todosCollection
+      .find({ createdById: userId })
+      .sort({ position: -1 })
+      .limit(1)
+      .toArray();
+
+    const nextPosition = lastTodoInPosition.length
+      ? lastTodoInPosition[0].position + 1
+      : 0;
+
     const resInsert = await this.todosCollection.insertOne({
       title: input.title,
       isChecked: false,
+      position: nextPosition,
       createdAt: new Date(),
       updatedAt: new Date(),
       createdById: userId,
@@ -34,17 +45,17 @@ export class TodoService {
     input: EndUsersTodosUpdateInput,
     _userId: ObjectId
   ): Promise<Todo> {
-    await this.todosCollection.updateOne(
-      {
-        _id: todoId,
-      },
-      {
-        $set: {
-          isChecked: input.isChecked,
-          updatedAt: new Date(),
-        },
-      }
-    );
+    const $set = { updatedAt: new Date() } as Todo;
+
+    if (input.position !== null) {
+      $set.position = input.position;
+    }
+
+    if (input.isChecked) {
+      $set.isChecked = input.isChecked;
+    }
+
+    await this.todosCollection.updateOne({ _id: todoId }, { $set });
 
     return this.todosCollection.findOne({ _id: todoId });
   }
