@@ -74,13 +74,14 @@ describe("Testing todo service", () => {
 
     const todoAfterUpdate = await todoService.update(
       todoBeforeUpdate[0]._id as ObjectId,
-      { isChecked: true },
+      { isChecked: true, position: 1 },
       registeredUser.userId as ObjectId
     );
 
     expect(todoAfterUpdate).toEqual({
       ...todoBeforeUpdate[0],
       isChecked: todoAfterUpdate.isChecked,
+      position: todoAfterUpdate.position,
       updatedAt: todoAfterUpdate.updatedAt,
     });
   });
